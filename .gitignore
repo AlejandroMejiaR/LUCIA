@@ -1,0 +1,42 @@
+# Archivos y carpetas de Unity que no se deben subir
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+UserSettings/
+
+# Archivos de paquetes
+[Ll]ibrary/PackageCache/
+Packages/com.unity.collab-proxy/
+Packages/com.unity.test-framework/
+
+# Archivos de configuración local
+*.csproj
+*.sln
+*.user
+*.unityproj
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.pidb.meta
+
+# Archivos de cache del editor
+*.pref
+*.mode
+*.db
+
+# Configuración de Rider, VSCode u otros IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
