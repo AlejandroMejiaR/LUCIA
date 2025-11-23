@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -12,7 +11,6 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton Pattern
         if (Instance == null)
         {
             Instance = this;
@@ -26,11 +24,26 @@ public class AudioManager : MonoBehaviour
 
     public void SetVolume(float sliderValue)
     {
-        // Convertimos valor lineal del slider (0.0001 a 1) a decibeles logarítmicos (-80 a 0)
-        // Mathf.Log10(sliderValue) * 20 es la fórmula estándar.
-        // Nos aseguramos de que el slider nunca sea 0 absoluto para evitar errores matemáticos.
+        // Convierte 0-1 a Decibeles (-80 a 0)
         float volume = Mathf.Log10(Mathf.Max(sliderValue, 0.0001f)) * 20;
-        
         mainMixer.SetFloat(volumeParameter, volume);
+    }
+
+    // --- NUEVA FUNCIÓN ---
+    public float GetCurrentVolume()
+    {
+        // Preguntamos al Mixer a cuántos decibeles está
+        bool result = mainMixer.GetFloat(volumeParameter, out float dbValue);
+        
+        if (result)
+        {
+            // Convertimos Decibeles de vuelta a 0-1 para el slider
+            // Fórmula inversa: 10 ^ (db / 20)
+            return Mathf.Pow(10, dbValue / 20);
+        }
+        else
+        {
+            return 1f; // Si falla, asumimos volumen máximo
+        }
     }
 }

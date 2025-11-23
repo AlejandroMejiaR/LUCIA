@@ -30,6 +30,9 @@ public class MainMenuController : MonoBehaviour
         // Configurar el slider si existe AudioManager
         if(AudioManager.Instance != null)
         {
+            // NUEVA LÍNEA: Sincronizar la perilla visualmente al valor real
+            volumeSlider.value = AudioManager.Instance.GetCurrentVolume();
+
             volumeSlider.onValueChanged.AddListener(AudioManager.Instance.SetVolume);
         }
         

@@ -1,0 +1,12 @@
+# Blender 4.4.1 MTL File: 'Sketchfab_2023_04_11_21_00_41.blend'
+# www.blender.org
+
+newmtl PRIMARY_MATERIAL
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/mars scheme 1.png
+map_Ke C:/mars scheme 1.png
