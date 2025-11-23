@@ -67,24 +67,41 @@ public class InteractionManager : MonoBehaviour
     private void StartVideoInteraction(string fileName)
     {
         isVideoPlaying = true;
-        pressE_Panel.SetActive(false); // Ocultar aviso "E"
+        pressE_Panel.SetActive(false); 
         
-        // 1. Bloquear jugador
-        GameManager.Instance.UnlockCursor(); // Desbloquea el cursor para poder darle clic al botón continuar
+        GameManager.Instance.UnlockCursor();
         
-        // 2. Configurar Video
+        // --- NUEVA LÓGICA DE LIMPIEZA ---
+        
+        // 1. Mostrar el panel
         videoDisplay_Panel.SetActive(true);
+
+        // 2. Poner el RawImage en NEGRO (o transparente) temporalmente
+        // Esto oculta el "fantasma" del video anterior
+        videoScreen.color = Color.black; 
+
+        // ---------------------------------
+
         string path = Path.Combine(Application.streamingAssetsPath, fileName);
         
         interactVideoPlayer.source = VideoSource.Url;
         interactVideoPlayer.url = path;
         
-        // Audio setup (igual que en el menú)
         interactVideoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
         interactVideoPlayer.SetTargetAudioSource(0, videoAudioSource);
 
+        Debug.Log("Cargando video: " + fileName);
         interactVideoPlayer.Prepare();
-        interactVideoPlayer.Play();
+
+        // 3. Esperar a que esté listo para mostrar la imagen real
+        interactVideoPlayer.prepareCompleted += (source) => 
+        {
+            // El video ya está listo para arrancar
+            source.Play();
+
+            // Volvemos a poner el RawImage en BLANCO (para que se vea la textura del video)
+            videoScreen.color = Color.white; 
+        };
     }
 
     private void CloseVideoInteraction()
